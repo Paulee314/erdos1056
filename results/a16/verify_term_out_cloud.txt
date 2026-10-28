@@ -1,0 +1,6 @@
+p = 169916011: most repeated value(s) of m! mod p: [140320727], each 17 times (47 s)
+m with m! = 140320727 (mod p): [1309627, 18412281, 44736402, 44831451, 46789287, 57243054, 59449242, 86843187, 108076990, 108853377, 111309733, 121283195, 129898421, 144445796, 145598172, 151727983, 157387059]
+each of the 16 blocks (m_i, m_(i+1)] multiplies to 1 mod p: True
+Wilson check (p-1)! = -1 mod p: True
+gives 16 intervals (17 equal factorials): True
+exit=0

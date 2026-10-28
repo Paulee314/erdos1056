@@ -1,0 +1,20 @@
+OEIS A060427 / Erdos #1056: a(15) = 34,614,961   (found 2026-10-26 13:04 UTC by the cloud scan; Claude)
+
+Definition (OEIS): smallest prime p such that there are n strings of consecutive integers all having products = 1 mod p.
+Equivalently: smallest p for which some value occurs n+1 times among m! mod p, m = 1..p-1 (this convention
+reproduces every listed term a(2)..a(14); a(2) = 11 rules out counting 0!).
+
+p = 34,614,961: the value 33,919,633 occurs 16 times among m! mod p, at
+  m = 45566, 291444, 1119644, 3438999, 3614660, 4448849, 5767103, 11242336, 11684541, 12800791,
+      18784810, 19897411, 19969551, 23762668, 33505794, 34394461
+so the 15 blocks (m_i, m_{i+1}] each multiply to 1 mod p. No other value reaches 16 for this p.
+
+Checks
+- f1056c scan (production code) found it: chunk c_34476960.txt, line "34614961 16 1 14555301 20059659".
+- ref1056 (plain % reference, separate code): identical line, 0.7 s.
+- verify15/v15.py (numpy, written separately): multiplicity 16 for the single value 33919633; all 15 block
+  products = 1 mod p; Wilson check passes.
+- Minimality: the scan covered every prime in [5, 34,677,737) with no gaps (summarize.py) and no prime below p
+  has mx >= 16. Spot check: 79 primes from [1.04e7, 3.47e7] (60 random + all 19 with mx >= 15) give lines
+  identical to ref1056. The scan also reproduces OEIS a(2)..a(14) exactly.
+- OEIS A060427 as of 2026-10-26: 14 terms, ends at a(14) = 10,428,007; no a(15) listed.

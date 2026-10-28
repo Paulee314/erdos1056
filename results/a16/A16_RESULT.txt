@@ -1,0 +1,30 @@
+OEIS A060427 / Erdos #1056: a(16) = 169,916,011   (found 2026-10-28 11:00 UTC by the Mac Studio search; Claude)
+
+Definition (OEIS): smallest prime p such that there are n strings of consecutive integers all having products = 1 mod p.
+Equivalently: smallest p for which some value occurs n+1 times among m! mod p, m = 1..p-1
+(the convention that reproduces every listed term a(2)..a(14); see A15_RESULT.txt).
+
+p = 169,916,011: the value 140,320,727 occurs 17 times among m! mod p, at
+  m = 1309627, 18412281, 44736402, 44831451, 46789287, 57243054, 59449242, 86843187, 108076990, 108853377,
+      111309733, 121283195, 129898421, 144445796, 145598172, 151727983, 157387059
+so the 16 blocks (m_i, m_{i+1}] each multiply to 1 mod p. No other value reaches 17 for this p (nmx = 1).
+(Side data kept by the scan: m = 84958005 is the only m < p-2 with m! = -1 mod p.)
+
+Checks
+- f1056p scan (Mac Studio M3 Ultra, 28 threads) found it: chunk c_169867150.txt, line "169916011 17 1 84958005".
+  run1056.py stopped by itself after that block (TARGET_MX=17).
+- ref1056 (plain % reference, separate code): identical line, from two separate builds: Linux build in the Mac's
+  sandbox VM (1.7 s) and a cloud build.
+- certify.py: block [169867150, 170201504) PASS: sha256 b543419b60b5e3e1..., random window [169935536, 169936136)
+  (30 primes) byte-identical to ref1056, and both primes in the block with 15+ equal values (incl. this one)
+  re-run with ref1056.
+- verify_term.py (Python/NumPy, written separately; run in the cloud, 47 s for the factorial table): the single
+  value 140320727 has multiplicity 17 at the same 17 m; all 16 block products = 1 mod p computed directly;
+  Wilson check (p-1)! = -1 passes.
+- Minimality: the cloud scan covered every prime in [5, 34,677,737) (its maximum is 16 equal values, at
+  a(15) = 34,614,961); the Mac scan covered every prime in [34,677,737, 170,201,504) with no gaps (summarize.py),
+  in 250 blocks, all 250 certified PASS. 169,916,011 is the only prime in either run with 17 or more.
+- Primes scanned: 2,128,179 (cloud) + 7,385,631 (Mac) = 9,513,810 = number of primes in [5, 170,201,504),
+  matching an independent sieve count.
+- Random-factorials model (model.py): median ~152.3M, 90% range ~39.9M..323.1M before the search; a(16) is inside.
+- OEIS A060427 had 14 terms (to a(14) = 10,428,007) when last checked on 2026-10-26; re-check before submitting.
